@@ -1,0 +1,11 @@
+CREATE QUERY e_distance(float dist) FOR GRAPH anm_real_graph { 
+  ListAccum<Vertex<event>> @@distance_set;
+  d=
+  SELECT e1 
+  FROM event:e1 - (follow_by) - event:e2 
+  WHERE get_distance(e1,e2)<dist
+  ACCUM @@distance_set+=e2;
+  PRINT @@distance_set;
+}
+
+
